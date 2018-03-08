@@ -15,6 +15,7 @@ import os
 # RTX2MNC python script
 # VERSIONS:
 #  - 1.0.0 :: 2018-03-08 :: Added basic functionality working for one or more RT-files
+#  - 1.0.1 :: 2018-03-08 :: Added RT-name in MNC header
 ##
 # TODO:
 #  - Add check for MINC-file matches RTX dimensions and IDs
