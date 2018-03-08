@@ -59,7 +59,7 @@ rtx2mnc_py < VOLUME.mnc > < RTx > < out_label.mnc > [ --verbose ] [ --visualize 
 	sudo make install-all
 </code></pre>
 
-###Python tools:
- <pre><code>
+### Python tools:
+<pre><code>
  	pip install pydicom opencv-python numpy
 </pre></code>
