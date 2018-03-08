@@ -1,7 +1,7 @@
 # rtx2mnc_py
 Converts an Dicom RTX struct to minc
 
-Version changes:
+## Version changes:
 - 1.0.0 :: 2018-03-08 :: Added basic functionality working for one or more RT-files
 - 1.0.1 :: 2018-03-08 :: Added RT-name in MNC header
 
