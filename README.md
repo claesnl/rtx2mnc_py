@@ -31,35 +31,35 @@ rtx2mnc_py < VOLUME.mnc > < RTx > < out_label.mnc > [ --verbose ] [ --visualize 
  - pydicom
  - opencv2-python
  - numpy
- </code></pre>
+</code></pre>
 
- ## Installation of dependencies:
- MINC tools:
- <pre><code>
+## Installation of dependencies:
+### MINC tools:
+<pre><code>
  	git clone --recursive https://github.com/BIC-MNI/minc-toolkit-v2.git minc-toolkit-v2
  	cd minc-toolkit-v2
   	mkdir build && cd build
   	ccmake .. -DMT_BUILD_SHARED_LIBS:BOOL=ON
   	make && sudo make install
- </code></pre>
+</code></pre>
 
- pyminc:
- <pre><code>
+### pyminc:
+<pre><code>
  	git clone https://github.com/Mouse-Imaging-Centre/pyminc.git
  	cd pyminc
  	python setup.py install
 </code></pre>
 
-DCMTK:
+### DCMTK:
  <pre><code>
 	git clone https://github.com/commontk/DCMTK.git
 	cd DCMTK
 	./configure
 	make all
 	sudo make install-all
- </code></pre>
+</code></pre>
 
- Python tools:
+###Python tools:
  <pre><code>
  	pip install pydicom opencv-python numpy
- </pre></code>
+</pre></code>
