@@ -9,6 +9,7 @@ import pyminc.volumes.factory as pyminc
 import argparse
 import cv2
 from matplotlib.path import Path
+import os
 
 ##
 # RTX2MNC python script
@@ -16,7 +17,6 @@ from matplotlib.path import Path
 #  - 1.0.0 :: 2018-03-08 :: Added basic functionality working for one or more RT-files
 ##
 # TODO:
-#  - Add RT-name in minc header
 #  - Add check for MINC-file matches RTX dimensions and IDs
 ##
 
@@ -26,24 +26,29 @@ parser.add_argument('MINC', help='Path to the MINC container file')
 parser.add_argument('RTMINC', help='Path to the OUTPUT MINC RT file')
 parser.add_argument("--verbose", help="increase output verbosity", action="store_true")
 parser.add_argument("--visualize", help="Show plot of slices for debugging", action="store_true")
+parser.add_argument("--copy_name", help="Copy the name of the RTstruct (defined in Mirada) to the name of the MNC file", action="store_true")
+
 args = parser.parse_args()
 
 try:
 	RTSS = dicom.read_file(args.RTX) 
+	print RTSS.StructureSetROISequence[0].ROIName
 	ROIs = RTSS.ROIContourSequence
+
 	if args.verbose:
 		print "Found",len(ROIs),"ROIs"
 
 	volume = pyminc.volumeFromFile(args.MINC)
 
 	for ROI_id,ROI in enumerate(ROIs):
+
 		# Create one MNC output file per ROI
 		RTMINC_outname = args.RTMINC if len(ROIs) == 1 else args.RTMINC[:-4] + "_" + str(ROI_id) + ".mnc"
 		RTMINC = pyminc.volumeLikeFile(args.MINC,RTMINC_outname)
 		contour_sequences = ROI.ContourSequence
 
 		if args.verbose:
-			print " --> Found",len(contour_sequences),"contour sequences" 
+			print " --> Found",len(contour_sequences),"contour sequences for ROI:",RTSS.StructureSetROISequence[ROI_id].ROIName
 
 		for contour in contour_sequences:
 			assert contour.ContourGeometricType == "CLOSED_PLANAR"
@@ -90,6 +95,11 @@ try:
 
 		RTMINC.writeFile()
 		RTMINC.closeVolume()
+
+		if args.copy_name:
+			print 'minc_modify_header -sinsert dicom_0x0008:el_0x103e="'+RTSS.StructureSetROISequence[ROI_id].ROIName+'" '+RTMINC_outname
+			os.system('minc_modify_header -sinsert dicom_0x0008:el_0x103e="'+RTSS.StructureSetROISequence[ROI_id].ROIName+'" '+RTMINC_outname)
+
 	volume.closeVolume()
 
 except InvalidDicomError:
