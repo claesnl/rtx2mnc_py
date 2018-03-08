@@ -60,6 +60,6 @@ rtx2mnc_py < VOLUME.mnc > < RTx > < out_label.mnc > [ --verbose ] [ --visualize 
 </code></pre>
 
 ### Python tools:
-<pre><code>
+```
  	pip install pydicom opencv-python numpy
-</pre></code>
+```
