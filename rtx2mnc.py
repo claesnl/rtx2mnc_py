@@ -13,7 +13,7 @@ from matplotlib.path import Path
 ##
 # RTX2MNC python script
 # VERSIONS:
-#  - 1.0.0 :: Basic functionality working for one or more RT-files
+#  - 1.0.0 :: 2018-03-08 :: Added basic functionality working for one or more RT-files
 ##
 # TODO:
 #  - Add RT-name in minc header
