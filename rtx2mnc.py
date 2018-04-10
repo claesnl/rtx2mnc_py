@@ -16,6 +16,7 @@ import os
 # VERSIONS:
 #  - 1.0.0 :: 2018-03-08 :: Added basic functionality working for one or more RT-files
 #  - 1.0.1 :: 2018-03-08 :: Added RT-name in MNC header
+#  - 1.0.2 :: 2018-04-10 :: BUG - slice location rounded incorrectly. Fixed.
 ##
 # TODO:
 #  - Add check for MINC-file matches RTX dimensions and IDs
@@ -53,6 +54,8 @@ try:
 
 		for contour in contour_sequences:
 			assert contour.ContourGeometricType == "CLOSED_PLANAR"
+
+			current_slice_i_print = 0
 			
 			if args.verbose:
 				print "\t",contour.ContourNumber,"contains",contour.NumberOfContourPoints
@@ -88,7 +91,7 @@ try:
 				plt.plot(voxel_coordinates_inplane[:,0],voxel_coordinates_inplane[:,1],'ro')
 				plt.show()
 
-			RTMINC.data[np.int(current_slice_i)] += current_slice_inner 
+			RTMINC.data[int(round(current_slice_i))] += current_slice_inner 
 
 
 		# Remove even areas - implies a hole.
